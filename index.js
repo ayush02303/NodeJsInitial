@@ -18,6 +18,16 @@ app.get( "/cats" , (req, res ) => {
     res.render( "cats" , {cats})
 })
 
+// get and post requests in express 
+app.get("/tacos", (req , res )=>{ 
+    res.send("GET/ tacos response ")
+})
+
+app.post("/tacos", (req , res )=>{ 
+    res.send("POST/ tacos response ")
+})
+
+
 
 
 app.listen( 3000 , ()=>{ console.log("Listening to port 30000 , Yes!")})

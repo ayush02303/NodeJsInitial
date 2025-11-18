@@ -7,6 +7,11 @@
 </head>
 <body>
     <h1>I suppose this is the cats page </h1>
-    <p><%= cats %></p>
+    <!-- <p><%= cats %></p> -->
+     <ul>
+        <% for( let cat of cats) {%>
+        <li><%= cat %></li>
+        <% } %>
+     </ul>
 </body>
 </html>
