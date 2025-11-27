@@ -1,33 +1,27 @@
-const express = require("express")
-const app = express() 
-const path = require('path')
+const mongoose = require('mongoose');
 
-app.set( "view engine" , "ejs")
-app.set("views" , path.join(__dirname, "/views"))
+main().catch(err => console.log("Connection error:", err));
 
-app.get( '/' , (req, res)=> { res.render("home.ejs")
+async function main() {
+  await mongoose.connect('mongodb://127.0.0.1:27017/movieApp');
+  console.log("Database connected successfully!");
 
-})
-app.get( "/random", (req, res) => {
-    const num = Math.floor( Math.random()*6)+1; 
-    res.render('random', {rand : num})
-} )
+  const movieSchema = new mongoose.Schema({
+    title: String, 
+    year: Number, 
+    score: Number, 
+    rating: String
+  });
 
-app.get( "/cats" , (req, res ) => {
-    const cats = ['one' , 'two' , 'seven', ]
-    res.render( "cats" , {cats})
-})
+  const Movie = mongoose.model('Movie', movieSchema);
 
-// get and post requests in express 
-app.get("/tacos", (req , res )=>{ 
-    res.send("GET/ tacos response ")
-})
+  const data = await Movie.insertMany([
+    { title: "Amadeus", year: 1997, score: 9.2, rating: "R" },
+    { title: "Interstellar", year: 2014, score: 9.0, rating: "PG-13" },
+    { title: "Inception", year: 2010, score: 8.8, rating: "PG-13" },
+    { title: "The Dark Knight", year: 2008, score: 9.0, rating: "PG-13" }
+  ]);
 
-app.post("/tacos", (req , res )=>{ 
-    res.send("POST/ tacos response ")
-})
-
-
-
-
-app.listen( 3000 , ()=>{ console.log("Listening to port 30000 , Yes!")})
+  console.log("It worked!");
+  console.log(data);
+}
