@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 main().catch(err => console.log("Connection error:", err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/movieApp');
+  await mongoose.connect('mongodb://127.0.0.1:27017/shopApp');
   console.log("Database connected successfully!");
 
   const movieSchema = new mongoose.Schema({
